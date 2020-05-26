@@ -1,0 +1,13 @@
+<h1>
+  home works!
+</h1>
+
+
+<input type="text" #text />
+<button type="button" (click)="submitData(text.value);">Submit</button>
+
+<ul>
+  <li *ngFor="let x of words; let i = index" style="list-style-type: none">
+    {{i+1}}) {{x.word}} <span (click)="delete(i);" style="margin-left: 10px; color: red; font-weight: bold; cursor: pointer"> X </span>
+  </li>
+</ul>

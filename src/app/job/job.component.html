@@ -1,0 +1,24 @@
+<h1>Jobs</h1>
+
+<mat-card>
+  <mat-card-content>
+
+      <table  mat-table cellspacing="5">
+        <th>
+          Company
+        </th>
+        <th>
+          Name
+        </th>
+        <tr *ngFor="let x of jobs">
+          <td>
+            <a [routerLink]="['/contractors', x._id]">{{ x.company }}</a>
+          </td>
+          <td>
+            {{ x.firstName }} {{ x.lastName}}
+          </td>
+        </tr>
+      </table>
+
+  </mat-card-content>
+</mat-card>
