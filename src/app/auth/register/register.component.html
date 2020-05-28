@@ -37,9 +37,7 @@
         </tr>
       </table>
     </form>
+    <button mat-raised-button (click)="register()" color="primary">Register</button><br><br>
+    <span>Already have an account ? <a [routerLink]="['/auth/login']">login</a> here</span>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button (click)="register()" color="primary">Register</button>
-    <span>Allrady have an account ? <a [routerLink]="['/auth/login']">login</a> here</span>
-  </mat-card-actions>
 </mat-card>
