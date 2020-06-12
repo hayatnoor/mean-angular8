@@ -20,8 +20,9 @@ body {
 
 .mat-snack-bar-container {
   border-radius: 4px !important;
-  margin-bottom: 4px !important;
+  margin-bottom: 10px !important;
   animation: snackbarIn 0.1s;
+  box-shadow: 1px 1px 7px 1px gray;
 }
 
 .mat-snack-bar-container.pizza-party {
