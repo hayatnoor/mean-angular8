@@ -18,6 +18,9 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { JobComponent } from './job/job.component';
 
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import {MAT_SNACK_BAR_DATA} from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +28,7 @@ import { JobComponent } from './job/job.component';
     HomeComponent,
     UserComponent,
     JobComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -44,8 +48,8 @@ import { JobComponent } from './job/job.component';
     provide: HTTP_INTERCEPTORS,
     useClass: CatchErrorInterceptor,
     multi: true,
-  }],
-  entryComponents: [],
+  }, { provide: MAT_SNACK_BAR_DATA, useValue: {} }],
+  entryComponents: [SnackbarComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

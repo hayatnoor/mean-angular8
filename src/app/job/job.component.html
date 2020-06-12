@@ -1,6 +1,10 @@
 <h1>Jobs</h1>
 
 <mat-card>
+  <mat-form-field>
+    <input matInput placeholder="Search"  [(ngModel)]="search" (keyup)=filterJobs($event)>
+  </mat-form-field>
+  <p class="total-jobs">Showing {{ jobs.length }} jobs</p>
   <mat-card-content>
 
       <table  mat-table cellspacing="5">

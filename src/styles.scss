@@ -17,3 +17,31 @@ body {
     font-family: 'Exo', sans-serif;
   }
 }
+
+.mat-snack-bar-container {
+  border-radius: 4px !important;
+  margin-bottom: 4px !important;
+  animation: snackbarIn 0.1s;
+}
+
+.mat-snack-bar-container.pizza-party {
+  color: white;
+  font-family: 'Exo', sans-serif;
+  border-radius: 4px;
+  margin-bottom: 100px;
+}
+
+.mat-snack-bar-container .flex {
+  text-align: center;
+}
+
+@keyframes snackbarIn {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-100px);
+    opacity: 1;
+  }
+}

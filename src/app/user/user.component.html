@@ -1,34 +1,46 @@
-<button mat-flat-button color="default" (click)="back()" *ngIf="pageEdit">Back</button>
-
+<button mat-flat-button color="default" (click)="back()" *ngIf="pageEdit"><span class="material-icons">keyboard_arrow_left</span>Back</button>
 
 <h1>{{ pageTitle }}</h1>
 
-
 <mat-card>
   <mat-card-content>
+    <div class="example-container">
+      <form #contactForm='ngForm' (ngSubmit)='save(contactForm)'>
+        <mat-form-field>
+          <input matInput placeholder="First Name" required #firstName='ngModel' name='firstName' [(ngModel)]='user.firstName' minlength="2">
+          <mat-error *ngIf="firstName?.invalid && (firstName.dirty || firstName.touched)">
+            <div *ngIf="firstName.errors.required || firstName.errors.minlength">First Name is required and should be at least 2 characters.</div>
+            <div *ngIf="firstName.errors.cannotContainSpace">Username can not contain space.</div>
+          </mat-error>
+        </mat-form-field>
 
-<div class="example-container">
-  <mat-form-field>
-    <input matInput placeholder="First Name" [(ngModel)]="user.firstName">
-  </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Last Name" required #lastName='ngModel' name='lastName' [(ngModel)]='user.lastName'>
+          <mat-error *ngIf="lastName?.invalid && (lastName.dirty || lastName.touched)">
+            <div *ngIf="lastName.errors.required">Last Name is required.</div>
+          </mat-error>
+        </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Last Name" [(ngModel)]="user.lastName">
-  </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Company" required #company='ngModel' name='company' [(ngModel)]='user.company'>
+          <mat-error *ngIf="company?.invalid && (company.dirty || company.touched)">
+            <div *ngIf="company.errors.required">Company is required.</div>
+          </mat-error>
+        </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Company" [readonly]="[pageEdit]" [(ngModel)]="user.company">
-  </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Type of Work"  required #job='ngModel' name='job' [(ngModel)]='user.job'>
+            <mat-option [value]="job.id" *ngFor="let job of jobs">{{job.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="job?.invalid && (job.dirty || job.touched)">
+            <div *ngIf="job.errors.required">Job is required.</div>
+          </mat-error>
+        </mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="Type of Work" [(ngModel)]="user.job">
-      <mat-option [value]="job.id" *ngFor="let job of jobs">{{job.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <div class="example-button-row">
-    <button mat-raised-button color="primary" (click)="save()">Submit</button>
-  </div>
-</div>
+        <div mat-dialog-actions>
+          <button mat-raised-button color="primary" cdkFocusInitial>Save</button>
+        </div>
+      </form>
+    </div>
   </mat-card-content>
 </mat-card>

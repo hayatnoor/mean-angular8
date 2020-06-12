@@ -6,3 +6,21 @@
 .example-container > * {
   width: 100%;
 }
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-card {
+  width: 50%;
+  left: 25%;
+}
+
+h1 {
+  text-align: center;
+}
+
+.mat-dialog-actions {
+  float: right;
+}

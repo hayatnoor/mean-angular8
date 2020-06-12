@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import {Location} from '@angular/common';
+import { NgForm } from '@angular/forms';
+import {MatSnackBar} from '@angular/material';
+import {SnackbarComponent} from '../components/snackbar/snackbar.component';
 
 
 
@@ -13,13 +16,6 @@ import {Location} from '@angular/common';
 export class UserComponent implements OnInit {
   pageTitle = '';
   pageEdit = false;
-  user: any = {
-    firstName: '',
-    lastName: '',
-    company: '',
-    job: 0
-  };
-
   jobs: any = [{
     id: 1,
     name: 'Plumbing'
@@ -29,7 +25,12 @@ export class UserComponent implements OnInit {
     name: 'Painting'
   }];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private _location: Location) { }
+  user: any = <any>{};
+  message = 'Saved!';
+
+
+
+  constructor(private http: HttpClient, private route: ActivatedRoute, private _location: Location, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
@@ -51,34 +52,50 @@ export class UserComponent implements OnInit {
     }
   }
 
-  save () {
-    if (this.pageEdit) {
-      this.http.put('/api/contractor/', this.user)
-        .subscribe(
-          data => {
-            console.log('PUT Request is successful ', data);
-            //this.user = data;
-          },
-          error => {
-            console.log('Error', error);
-          }
-        );
+  save (contactForm: NgForm) {
+    if (contactForm.invalid) {
+      return;
     } else {
-      this.http.post('/api/contractor/', this.user)
-        .subscribe(
-          data => {
-            console.log('POST Request is successful ', data);
-            this.user = {};
-          },
-          error => {
-            console.log('Error', error);
-          }
-        );
+      if (this.pageEdit) {
+        this.http.put('/api/contractor/', this.user)
+          .subscribe(
+            data => {
+              console.log('PUT Request is successful ', data);
+              this.openSnackBar(this.message, 'pizza-party');
+              //this.user = data;
+            },
+            error => {
+              console.log('Error', error);
+            }
+          );
+      } else {
+        this.http.post('/api/contractor/', this.user)
+          .subscribe(
+            data => {
+              console.log('POST Request is successful ', data);
+              this.openSnackBar(this.message, 'pizza-party');
+              this.user = {};
+              contactForm.resetForm();
+            },
+            error => {
+              console.log('Error', error);
+            }
+          );
+      }
     }
   }
 
   back() {
     this._location.back();
   }
+
+  openSnackBar(message: string, panelClass: string) {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      data: message,
+      panelClass: panelClass,
+      duration: 3000
+    });
+  }
+
 
 }
